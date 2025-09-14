@@ -58,6 +58,7 @@ def main():
                 {"role": "assistant", "content": example["output"]}
             ]
         }
+    # split="train[:100]"でデータの数を変更可能
     train_data = load_dataset(data_args.train_data, split="train", streaming=data_args.streaming)
     if data_args.shuffle and not data_args.streaming:
         train_data = train_data.shuffle(seed=42)
