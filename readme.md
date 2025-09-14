@@ -3,8 +3,18 @@ LLMの学習コードをまとめた。
 
 ## 環境構築
 - Python: 3.12
+- その他ライブラリ
 ```
 pip install -r requirements.txt
+```
+### uv による環境構築
+- python のバージョン変更
+```
+uv python pin 3.12
+```
+- 仮想環境の生成
+```
+uv init venv
 ```
 
 ## 実行方法
