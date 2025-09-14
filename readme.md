@@ -14,7 +14,15 @@ uv python pin 3.12
 ```
 - 仮想環境の生成
 ```
-uv init venv
+uv venv
+```
+- 仮想環境の起動(.venvの場合)
+```
+. .venv/bin/activate
+```
+- ライブラリのインストール
+```
+uv pip  install -r requirements.txt
 ```
 
 ## 実行方法
