@@ -3,9 +3,13 @@ LLMの学習コードをまとめた。
 
 ## 環境構築
 - Python: 3.12
-- その他ライブラリ
+- その他主要ライブラリ
+    - torch: 2.8.0(cuda=12.8)
+    - transformers: 4.56.1
+    - unsloth: 2025.9.4
+
 ```
-pip install -r requirements.txt
+pip install torch transformers[torch,ja] unsloth
 ```
 ### uv による環境構築
 - python のバージョン変更
@@ -22,7 +26,7 @@ uv venv
 ```
 - ライブラリのインストール
 ```
-uv pip  install -r requirements.txt
+uv pip install torch transformers[torch,ja] unsloth
 ```
 
 ## 実行方法
