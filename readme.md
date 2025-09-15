@@ -44,7 +44,12 @@ HF_TOKEN="hf_..."
 ```
 python sft.py --config configs/sft.yaml
 ```
-### DPO(選好チューニング)
+### 選好チューニング
+- DPO
 ```
 python dpo.py --config configs/dpo.yaml
+```
+- ORPO
+```
+python orpo.py --config configs/orpo.yaml
 ```
