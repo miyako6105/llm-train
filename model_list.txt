@@ -1,2 +1,7 @@
+- モデル
 google/gemma-3-4b-it
 google/gemma-3-1b-it
+
+- データセット
+指示チューニング: Ego/jpflan
+選好チューニング: cyberagent/chatbot-arena-ja-calm2-7b-chat-experimental
