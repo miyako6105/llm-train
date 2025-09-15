@@ -4,6 +4,7 @@ dtype: bfloat16                                       # fp16 or bf16
 use_fast: true
 padding_side: right
 chat_template: auto
+attn_implementation: eager
 
 # === データセット ===
 train_data: izumi-lab/llm-japanese-dataset            # 訓練データ
@@ -13,8 +14,12 @@ max_length: 2048                                  # 最大系列長
 
 # === SFT(SFTConfig) ===
 output_dir: outputs/sft-llama-3-2-1b                  # 保存先
-per_device_train_batch_size: 2                        # 学習時のバッチサイズ
-per_device_eval_batch_size: 2                         # 検証時のバッチサイズgradient_accumulation_steps: 8                        # 勾配累積チェックポイント
+per_device_train_batch_size: 1                        # 学習時のバッチサイズ
+per_device_eval_batch_size: 1                         # 検証時のバッチサイズ
+gradient_accumulation_steps: 8                            # 勾配累積のステップ数
+gradient_checkpointing: true                              # 勾配累積チェックポイント
+gradient_checkpointing_kwargs:
+  use_reentrant: True
 learning_rate: 2.0e-5                                 # 学習率
 num_train_epochs: 3                                   # エポック数
 lr_scheduler_type: cosine_with_min_lr                 # 学習率スケジューラ
@@ -23,8 +28,8 @@ lr_scheduler_kwargs:
 warmup_ratio: 0.03
 max_grad_norm: 1.0                                    # 勾配クリッピングの閾値
 logging_steps: 10                                     # ログの間隔
-save_strategy: "no"                                     # 保存タイミング(no, steps, epoch)
-eval_strategy: "no"                                  # 評価間隔(no, steps, epoch)
+save_strategy: "no"                                   # 保存タイミング(no, steps, epoch)
+eval_strategy: "no"                                   # 評価間隔(no, steps, epoch)
 bf16: true
 tf32: true
 optim: adamw_torch                                    # 最適化関数
@@ -41,6 +46,7 @@ load_in_4bit: true
 bnb_4bit_compute_dtype: bfloat16
 bnb_4bit_use_double_quant: true
 bnb_4bit_quant_type: nf4
+use_bnb_nested_quant: true
 
 # Deepspeed ===
 ds_enable: false

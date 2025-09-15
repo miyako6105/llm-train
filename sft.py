@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 import torch
 from datasets import load_dataset
-from transformers import set_seed, AutoModelForCausalLM, AutoTokenizer
+from transformers import set_seed, AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from transformers.trainer_utils import get_last_checkpoint
 
 from trl import SFTTrainer, SFTConfig, TrlParser
@@ -33,17 +33,28 @@ def main():
 
     # Model
     dtype = {"bfloat16": torch.bfloat16, "float16": torch.float16}.get(model_args.dtype, torch.bfloat16)
-    kwargs = dict(trust_remote_code=model_args.trust_remote_code, torch_dtype=dtype, device_map="auto")
+    kwargs = dict(
+        trust_remote_code=model_args.trust_remote_code,
+        dtype=dtype,
+        #device_map="auto",
+        use_cache=False if sft_config.gradient_checkpointing else True,
+        low_cpu_mem_usage=True,
+        attn_implementation=model_args.attn_implementation
+        )
     if bnb_args.bnb_enable:
         if bnb_args.load_in_4bit:
-            kwargs.update(
+            bnb_config = BitsAndBytesConfig(
                 load_in_4bit=True,
                 bnb_4bit_compute_dtype=getattr(torch, bnb_args.bnb_4bit_compute_dtype),
                 bnb_4bit_use_double_quant=bnb_args.bnb_4bit_use_double_quant,
                 bnb_4bit_quant_type=bnb_args.bnb_4bit_quant_type,
             )
+            kwargs.update(quantization_config=bnb_config)
         else:
-            kwargs.update(load_in_8bit=True)
+            bnb_config = BitsAndBytesConfig(
+                load_in_8bit=True
+            )
+            kwargs.update(quantization_config=bnb_config)
     model = AutoModelForCausalLM.from_pretrained(model_args.model_name_or_path, **kwargs)
 
     # Dataset

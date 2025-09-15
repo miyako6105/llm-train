@@ -7,6 +7,7 @@ class ModelArgs:
     model_name_or_path: str
     dtype: str = "bfloat16"
     trust_remote_code: bool = False
+    attn_implementation: str = "eager"
 
 @dataclass
 class TokenizerArgs:
@@ -40,6 +41,7 @@ class BnbArgs:
     bnb_4bit_compute_dtype: str = "bfloat16"
     bnb_4bit_use_double_quant: bool = True
     bnb_4bit_quant_type: str = "nf4"
+    use_bnb_nested_quant: bool = True
 
 @dataclass
 class DsArgs:
