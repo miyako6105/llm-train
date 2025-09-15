@@ -36,8 +36,6 @@ def main():
     kwargs = dict(
         trust_remote_code=model_args.trust_remote_code,
         dtype=dtype,
-        #device_map="auto",
-        use_cache=False if sft_config.gradient_checkpointing else True,
         low_cpu_mem_usage=True,
         attn_implementation=model_args.attn_implementation
         )
