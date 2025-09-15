@@ -64,12 +64,12 @@ def main():
             ]
         }
     # split="train[:100]"でデータの数を変更可能
-    train_data = load_dataset(data_args.train_data, split="train", streaming=data_args.streaming)
+    train_data = load_dataset(data_args.train_data, split="train[:50000]", streaming=data_args.streaming)
     if data_args.shuffle and not data_args.streaming:
         train_data = train_data.shuffle(seed=42)
         train_data = train_data.map(preprocess_function, remove_columns=["instruction", "input", "output"])
     if data_args.eval_data is not None:
-        eval_data = load_dataset(data_args.eval_data, split="train", streaming=data_args.streaming)
+        eval_data = load_dataset(data_args.eval_data, split="train[50000:100000]", streaming=data_args.streaming)
         eval_data = eval_data.map(preprocess_function, remove_columns=["instruction", "input", "output"])
     else:
         eval_data = None
