@@ -58,21 +58,21 @@ def main():
     model = AutoModelForCausalLM.from_pretrained(model_args.model_name_or_path, **kwargs)
 
     # Dataset
+    # データセットのキーを変換
     def preprocess_function(example):
         return {
-            "prompt": [{"role": "user", "content": example["instruction"]}],
-            "completion": [
-                {"role": "assistant", "content": example["output"]}
-            ]
+            "prompt": example["prompt"],
+            "chosen": example["chosen"],
+            "rejected": example["rejected"],
         }
     # split="train[:100]"でデータの数を変更可能
     train_data = load_dataset(data_args.train_data, split="train", streaming=data_args.streaming)
     if data_args.shuffle and not data_args.streaming:
         train_data = train_data.shuffle(seed=42)
-        train_data = train_data.map(preprocess_function, remove_columns=["instruction", "input", "output"])
+        train_data = train_data.map(preprocess_function)
     if data_args.eval_data is not None:
         eval_data = load_dataset(data_args.eval_data, split="train", streaming=data_args.streaming)
-        eval_data = eval_data.map(preprocess_function, remove_columns=["instruction", "input", "output"])
+        eval_data = eval_data.map(preprocess_function)
     else:
         eval_data = None
 
