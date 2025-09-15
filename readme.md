@@ -29,6 +29,12 @@ uv venv
 uv pip install torch transformers[torch,ja] unsloth
 ```
 
+## Hugging Face のトークンについて
+.envファイルにアクセストークン(hf_からはじまる文字列)を以下のように記述
+```
+HF_TOKEN="hf_..."
+```
+
 ## 実行方法
 標準出力と標準エラー出力を別ファイルで書き出したいときは、それぞれのコマンドの後ろに以下を追加する
 ```
