@@ -20,7 +20,7 @@ gradient_accumulation_steps: 8                        # 勾配累積のステッ
 gradient_checkpointing: true                          # 勾配累積チェックポイント
 gradient_checkpointing_kwargs:
   use_reentrant: True
-learning_rate: 2.0e-5                                 # 学習率
+learning_rate: 2.0e-4                                 # 学習率
 num_train_epochs: 3                                   # エポック数
 lr_scheduler_type: cosine_with_min_lr                 # 学習率スケジューラ
 lr_scheduler_kwargs:
