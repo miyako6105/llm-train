@@ -40,7 +40,11 @@ HF_TOKEN="hf_..."
 ```
 1> stdout.log 2> stderr.log
 ```
-- sft.py
+### SFT
 ```
 python sft.py --config configs/sft.yaml
+```
+### DPO(選好チューニング)
+```
+python dpo.py --config configs/dpo.yaml
 ```
