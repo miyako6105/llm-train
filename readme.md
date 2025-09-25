@@ -11,6 +11,11 @@ LLMの学習コードをまとめた。
 ```
 pip install torch transformers[torch,ja] unsloth
 ```
+もしくは
+```
+pip install -r requirements.txt
+```
+
 ### uv による環境構築
 - python のバージョン変更
 ```
@@ -27,6 +32,10 @@ uv venv
 - ライブラリのインストール
 ```
 uv pip install torch transformers[torch,ja] unsloth
+```
+もしくは
+```
+uv pip install -r requirements.txt
 ```
 
 ## Hugging Face のトークンについて
