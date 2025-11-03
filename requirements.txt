@@ -8,3 +8,6 @@ matplotlib
 japanize-matplotlib
 scikit-learn
 pandas
+datasets
+rhoknp
+xmltodict
